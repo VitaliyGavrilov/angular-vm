@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IProduct } from './models/product';
-import {products as data} from './data/products'
+import { ProductsService } from './services/products.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,17 @@ import {products as data} from './data/products'
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'angular-vm';
-  products: IProduct[] = data
+  products: IProduct[] = []
+
+  constructor(private productsService: ProductsService) {
+
+  }
+
+  ngOnInit(): void {
+    this.productsService.getAll().subscribe(prod =>{
+      this.products = prod
+    })
+  }
 }
