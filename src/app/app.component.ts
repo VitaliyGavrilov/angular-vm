@@ -11,14 +11,17 @@ import { ProductsService } from './services/products.service';
 export class AppComponent implements OnInit{
   title = 'angular-vm';
   products: IProduct[] = []
+  loading = false
 
   constructor(private productsService: ProductsService) {
 
   }
 
   ngOnInit(): void {
+    this.loading = true
     this.productsService.getAll().subscribe(prod =>{
       this.products = prod
+      this.loading = false
     })
   }
 }
